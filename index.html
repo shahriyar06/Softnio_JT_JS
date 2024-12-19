@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Cart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/e48728907e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="mt-16">
+        <div class="w-10/12 mx-auto">
+            <div class="grid grid-cols-11 gap-8 overflow-hidden items-center">
+                <!-- Image Section -->
+                <div class="col-span-5 px-6">
+                    <img id="mainImage" src="image/Purple.jpeg" alt="Classy Modern Smart Watch"
+                        class="rounded max-w-full h-auto">
+                </div>
+                <!-- Details Section -->
+                <div class="col-span-6 pr-12">
+                    <h1 class="text-2xl font-bold text-gray-800">Classy Modern Smart Watch</h1>
+                    <div class="flex items-center text-[#FFD200]">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-alt"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <span class="text-sm text-[#8091A7] ml-2">(2 Reviews)</span>
+                    </div>
+                    <div class="flex items-end mt-3">
+                        <span class="line-through text-[#8091A7] mr-2 text-lg">$99.00</span>
+                        <span id="currentPrice" class="text-[#6576FF] font-semibold text-2xl">$79.00</span>
+                    </div>
+                    <p class="text-[#8091A7] mt-3">
+                        I must explain to you how all this mistaken idea of denoun cing ple praising pain was born and I
+                        will give you a complete account of the system, and expound the actual teaching.
+                    </p>
+                    <div class="flex gap-10 items-center mt-3">
+                        <div class="">
+                            <h1 class="text-[#8091A7]">Type</h1>
+                            <h1 class="text-xl font-semibold">Watch</h1>
+                        </div>
+                        <div class="">
+                            <h1 class="text-[#8091A7]">Model Number</h1>
+                            <h1 class="text-xl font-semibold">Forerunner 290XT</h1>
+                        </div>
+                    </div>
+                    <!-- Options -->
+                    <div class="mt-3">
+                        <label class="block text-gray-700 font-medium mb-2">Band Color:</label>
+                        <div id="colorOptions" class="flex space-x-3 mb-3">
+                            <button data-color="Purple" data-image="image/Purple.jpeg"
+                                class="w-4 h-4 bg-[#6576FF] rounded-full"></button>
+                            <button data-color="Cyan" data-image="image/Green.jpeg"
+                                class="w-4 h-4 bg-[#1FCEC9] rounded-full"></button>
+                            <button data-color="Blue" data-image="image/Blue.jpeg"
+                                class="w-4 h-4 bg-[#4B97D3] rounded-full"></button>
+                            <button data-color="Black" data-image="image/Black.jpeg"
+                                class="w-4 h-4 bg-[#3B4747] rounded-full"></button>
+                        </div>
+                        <div class="mt-3">
+                            <label class="block text-gray-700 font-medium mb-2">Wrist Size:</label>
+                            <div id="sizeOptions" class="flex space-x-4">
+                                <button data-size="S" data-price="69" class="py-2 px-4 border rounded-lg">S <span class="text-[#8091A7] text-sm">$69</span></button>
+                                <button data-size="M" data-price="79" class="py-2 px-4 border rounded-lg">M <span class="text-[#8091A7] text-sm">$79</span></button>
+                                <button data-size="L" data-price="89" class="py-2 px-4 border rounded-lg">L <span class="text-[#8091A7] text-sm">$89</span></button>
+                                <button data-size="XL" data-price="99" class="py-2 px-4 border rounded-lg">XL <span class="text-[#8091A7] text-sm">$99</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Cart Actions -->
+                    <div class="mt-6 flex items-center space-x-4">
+                        <div class="flex items-center">
+                            <button id="decrement"
+                                class="w-8 h-8 flex items-center justify-center text-xl font-bold text-[#8091A7] border border-gray-300 hover:bg-gray-200">-</button>
+                            <span id="count"
+                                class="w-10 h-8 text-center border-y text-xl font-medium text-[#000000]">1</span>
+                            <button id="increment"
+                                class="w-8 h-8 flex items-center justify-center text-xl font-bold text-[#8091A7] border border-gray-300 hover:bg-gray-200">+</button>
+                        </div>
+                        <button id="addToCart" class="bg-[#6576FF] text-white py-2 px-4 rounded-md hover:bg-[#6576F1]">
+                            Add to Cart
+                        </button>
+                        <div>
+                            <i class="fa-regular fa-heart text-[#6576FF] text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="floatingCart"
+            class="hidden mt-16 mx-auto w-36 text-center bg-[#FFBB5A] text-bleck py-2 px-6 rounded-full cursor-pointer">
+            Checkout (<span id="cartCount"></span>)
+        </div>
+    </div>
+
+    <div>
+        <!-- Modal (hidden by default) -->
+        <div id="modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white w-3/5 rounded-lg shadow-lg">
+                <!-- Modal Header -->
+                <div class="px-6 py-4 border-b">
+                    <h2 class="text-xl font-semibold text-gray-800">Your Cart</h2>
+                </div>
+                <!-- Modal Content -->
+                <div class="p-6">
+                    <table id="cartItems" class="w-full text-left text-[#8091A7]">
+                        <thead>
+                            <tr>
+                                <th class="py-2">Item</th>
+                                <th class="py-2">Color</th>
+                                <th class="py-2">Size</th>
+                                <th class="py-2">Qnt</th>
+                                <th class="py-2">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <!-- Total -->
+                    <div class="mt-4 flex justify-between text-lg font-medium">
+                        <span>Total</span>
+                        <div id="cartTotal" class="mr-12">
+                            
+                            <span class="">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Footer -->
+                <div class="px-6 py-4 border-t flex justify-end gap-5">
+                    <button id="closeModal"
+                        class="px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded hover:bg-gray-300">
+                        Continue Shopping
+                    </button>
+                    <button id="clearCart"
+                        class="px-4 py-2 bg-[#6576FF] text-white font-medium rounded hover:bg-[#6576F1]">
+                        Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
